@@ -2,6 +2,21 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.env
+*.png
+*.jpg
+*.html
+*.json
+*.mp4
+*.bak
+*.p
+*.pickle
+outputs/
+.idea/
+runs/
+samples/
+datasets/
+trained_states/
 
 # C extensions
 *.so
