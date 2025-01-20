@@ -3,8 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.env
-*.png
-*.jpg
 *.html
 *.json
 *.mp4
