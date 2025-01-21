@@ -1,4 +1,3 @@
-import numpy as np
 import math
 from src.gpu.genetic_sim_gpu import _decide_trader, _decide_grazer, _decide_predator, _decide_gamer
 from src.cpu.genetic_sim_cpu import decide_trader

@@ -1,6 +1,5 @@
 import shutil
 import numpy as np
-from scipy.interpolate import interp1d
 from tqdm import tqdm
 import cv2
 import pickle
@@ -8,11 +7,9 @@ import matplotlib as mpl
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
-import plotly.io as pio
 from matplotlib import pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
-from matplotlib import cm
-from matplotlib import animation
+from matplotlib import cm, animation
 from scipy.signal import fftconvolve
 from src.genome import genetic_histogram, check_genome_has_connections
 from src.fitness import calc_fitness_roi_validation
@@ -83,14 +80,7 @@ def overlay_layer_frames(layer_frames, remove_alpha=False):
         for i in range(1, no_layers):
             layers[layer_frames[i][f][:, :, 3].nonzero()] = layer_frames[i][f][layer_frames[i][f][:, :, 3].nonzero()]
         combined_frames.append(layers)
-        '''
-                for i in range(no_layers):
-                    layers.append(layer_frames[i][f])
-                if remove_alpha:
-                    combined_frames.append(cv2.cvtColor(overlay_layers(layers), cv2.COLOR_BGRA2RGB))
-                    #combined_frames.append(overlay_layers(layers)[:,:,0:3])
-                else:
-                    combined_frames.append(overlay_layers(layers))'''
+
     return combined_frames
 
 
