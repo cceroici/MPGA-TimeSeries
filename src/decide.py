@@ -16,6 +16,7 @@ def calc_decide_numerical(population, USE_GPU=True):
     out_rr_override = population.template.out_idx["RR OV"] + out_pos_idx
     out_thresh_plus = population.template.out_idx["THRESH +"] + out_pos_idx
     out_thresh_minus = population.template.out_idx["THRESH -"] + out_pos_idx
+    out_hold = population.template.out_idx["HOLD"] + out_pos_idx
 
     if USE_GPU:
         if population.pop_count < 2000:
@@ -35,7 +36,8 @@ def calc_decide_numerical(population, USE_GPU=True):
                                                        population.d_thresh,
                                                        out_pos_idx, out_clk_lim_plus, out_clk_lim_minus,
                                                        out_rr_lim_plus, out_rr_lim_minus, out_rr_override,
-                                                       out_thresh_plus, out_thresh_minus
+                                                       out_thresh_plus, out_thresh_minus,
+                                                       out_hold
                                                        )
     else:
         decide_trader(pos=population.pos, alive=population.alive, clk_sig=population.clk_sig, age=population.age,
@@ -45,7 +47,7 @@ def calc_decide_numerical(population, USE_GPU=True):
                       out_pos_idx=out_pos_idx, out_clk_lim_plus_idx=out_clk_lim_plus,
                       out_clk_lim_minus_idx=out_clk_lim_minus,
                       out_rr_lim_plus_idx=out_rr_lim_plus, out_rr_lim_minus_idx=out_rr_lim_minus, out_rr_override=out_rr_override,
-                      out_thresh_plus_idx=out_thresh_plus, out_thresh_minus_idx=out_thresh_minus)
+                      out_thresh_plus_idx=out_thresh_plus, out_thresh_minus_idx=out_thresh_minus, out_hold_idx=out_hold)
 
 
 def calc_decide_gamer(population, USE_GPU=True):
