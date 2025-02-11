@@ -46,6 +46,7 @@ def initialize_trader(memory_node_count, no_populations, pickle_data_file=None, 
     trader.output_names.append("RR-OV")
     trader.output_names.append("THRESH+")
     trader.output_names.append("THRESH-")
+    trader.output_names.append("HOLD")
     trader.out_idx["CLK limit +"] = len(trader.out_idx)
     trader.out_idx["CLK limit -"] = len(trader.out_idx)
     trader.out_idx["RR limit +"] = len(trader.out_idx)
@@ -53,7 +54,7 @@ def initialize_trader(memory_node_count, no_populations, pickle_data_file=None, 
     trader.out_idx["RR OV"] = len(trader.out_idx)
     trader.out_idx["THRESH +"] = len(trader.out_idx)
     trader.out_idx["THRESH -"] = len(trader.out_idx)
-
+    trader.out_idx["HOLD"] = len(trader.out_idx)
 
     # Memory node store outputs
     for i in range(memory_node_count):

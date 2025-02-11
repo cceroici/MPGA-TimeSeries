@@ -43,7 +43,7 @@ def decide_trader(pos, alive, clk_sig, age, clk_counter, clk_lim, O, dec_thresh,
                   rr_counter, rr_lim, max_rr_period,
                   out_pos_idx, out_clk_lim_plus_idx, out_clk_lim_minus_idx,
                   out_rr_lim_plus_idx, out_rr_lim_minus_idx, out_rr_override,
-                  out_thresh_plus_idx, out_thresh_minus_idx):
+                  out_thresh_plus_idx, out_thresh_minus_idx, out_hold_idx):
     no_org = O.shape[0]
     for i_org in range(no_org):
         if alive[i_org] == 1:
@@ -67,7 +67,7 @@ def decide_trader(pos, alive, clk_sig, age, clk_counter, clk_lim, O, dec_thresh,
                 reaction_override = 1
 
             rr_counter[i_org] += 1
-            if rr_counter[i_org] >= rr_lim[i_org] or reaction_override == 1:
+            if (rr_counter[i_org] >= rr_lim[i_org] or reaction_override == 1) and O[i_org, 0, out_hold_idx] == 0:
                 rr_counter[i_org] = 0
                 reaction = 1
 

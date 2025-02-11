@@ -354,7 +354,8 @@ def _decide_trader(O, pos, age, alive,
                    dec_thresh,
                    out_pos_idx, out_clk_lim_plus_idx, out_clk_lim_minus_idx,
                    out_rr_lim_plus_idx, out_rr_lim_minus_idx, out_rr_override,
-                   out_thresh_plus_idx, out_thresh_minus_idx):
+                   out_thresh_plus_idx, out_thresh_minus_idx,
+                   out_hold_idx):
 
     tx = cuda.threadIdx.x  # Thread id in a 1D block
     bx = cuda.blockIdx.x  # Block id in a 1D grid
@@ -380,7 +381,7 @@ def _decide_trader(O, pos, age, alive,
                 reaction_override = 1
 
             rr_counter[i_org] += 1
-            if rr_counter[i_org] >= rr_lim[i_org] or reaction_override == 1:
+            if (rr_counter[i_org] >= rr_lim[i_org] or reaction_override == 1) and O[i_org, 0, out_hold_idx] == 0:
                 rr_counter[i_org] = 0
                 reaction = 1
 
@@ -393,19 +394,6 @@ def _decide_trader(O, pos, age, alive,
                     pos[i_org, i_pos] = 0.
                     if O[i_org, 0, out_pos_idx + i_pos] > current_thresh:
                         pos[i_org, i_pos] = 1.
-
-            '''
-                        ### ******* When sum==0 >> only USDC = 1
-                        # Decide buy/sell position
-                        for i_pos in range(pos.shape[1]):
-                            pos[i_org, i_pos] = 0.
-                            if O[i_org, 0, out_pos_idx + i_pos] > dec_thresh:
-                                pos[i_org, i_pos] = 1.
-                                sum_zero = False
-                        # if all positions zero, set full position to USD (last position index)
-                        if sum_zero:
-                            pos[i_org, pos.shape[1]-1] = 1.
-            '''
 
 
             if O[i_org, 0, out_clk_lim_plus_idx] > current_thresh:  # increase clock period
